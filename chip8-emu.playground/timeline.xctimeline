@@ -3,7 +3,29 @@
    version = "3.0">
    <TimelineItems>
       <LoggerValueHistoryTimelineItem
-         documentLocation = "file:///Users/alexanderzhang/Documents/chip8-emu/chip8-emu.playground#CharacterRangeLen=39&amp;CharacterRangeLoc=0&amp;EndingColumnNumber=0&amp;EndingLineNumber=3&amp;StartingColumnNumber=0&amp;StartingLineNumber=0&amp;Timestamp=533572556.664417"
+         documentLocation = "file:///Users/alexanderzhang/Documents/chip8-emu/chip8-emu.playground#CharacterRangeLen=20651&amp;CharacterRangeLoc=0&amp;EndingColumnNumber=0&amp;EndingLineNumber=402&amp;StartingColumnNumber=0&amp;StartingLineNumber=0&amp;Timestamp=543885891.221045"
+         selectedRepresentationIndex = "0"
+         shouldTrackSuperviewWidth = "NO">
+      </LoggerValueHistoryTimelineItem>
+      <LoggerValueHistoryTimelineItem
+         documentLocation = "file:///Users/alexanderzhang/Documents/chip8-emu/chip8-emu.playground#CharacterRangeLen=9&amp;CharacterRangeLoc=5788&amp;EndingColumnNumber=0&amp;EndingLineNumber=101&amp;StartingColumnNumber=41&amp;StartingLineNumber=100&amp;Timestamp=543885891.221633"
+         lockedSize = "{871, 155}"
+         selectedRepresentationIndex = "0"
+         shouldTrackSuperviewWidth = "NO">
+      </LoggerValueHistoryTimelineItem>
+      <LoggerValueHistoryTimelineItem
+         documentLocation = "file:///Users/alexanderzhang/Documents/chip8-emu/chip8-emu.playground#CharacterRangeLen=2&amp;CharacterRangeLoc=8051&amp;EndingColumnNumber=48&amp;EndingLineNumber=132&amp;StartingColumnNumber=46&amp;StartingLineNumber=132&amp;Timestamp=543885891.222308"
+         selectedRepresentationIndex = "1"
+         shouldTrackSuperviewWidth = "NO">
+      </LoggerValueHistoryTimelineItem>
+      <LoggerValueHistoryTimelineItem
+         documentLocation = "file:///Users/alexanderzhang/Documents/chip8-emu/chip8-emu.playground#CharacterRangeLen=7&amp;CharacterRangeLoc=6628&amp;EndingColumnNumber=22&amp;EndingLineNumber=112&amp;StartingColumnNumber=15&amp;StartingLineNumber=112&amp;Timestamp=543885891.222543"
+         selectedRepresentationIndex = "0"
+         shouldTrackSuperviewWidth = "NO">
+      </LoggerValueHistoryTimelineItem>
+      <LoggerValueHistoryTimelineItem
+         documentLocation = "file:///Users/alexanderzhang/Documents/chip8-emu/chip8-emu.playground#CharacterRangeLen=1&amp;CharacterRangeLoc=6634&amp;EndingColumnNumber=22&amp;EndingLineNumber=112&amp;StartingColumnNumber=21&amp;StartingLineNumber=112&amp;Timestamp=543885891.222708"
+         lockedSize = "{178, 334}"
          selectedRepresentationIndex = "0"
          shouldTrackSuperviewWidth = "NO">
       </LoggerValueHistoryTimelineItem>

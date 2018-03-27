@@ -1,3 +1,9 @@
-# Chip8 Emulator in Swift Playgrounds
+# Swift Playgrounds Chip8 Emulator
 
-I had ever implemented an emulator before, so I decided to make a Chip8 interpreter in Swift (which I had also not used before). I don't think this was a great idea, as preformance is not very good and things like UI took a lot longer than they needed to, but I do think I have a better understanding of CPU function, the Swift programming language, and implementing interfaces programmatically in UIKit, than I had before. The source code is also pretty comprehensively commented, I think, so perhaps it could be used as reference for future projects.
+This playground was created for Apple's WWDC Scholarship Program 2018. It emulates the functionality of the Chip8 virtual CPU and includes several open source ROMs for demo purposes (see the source code for more information). It runs on macOS.
+
+This was my first time implementing an emulator as well as my first time using Swift. While perhaps not the best example of Swift coding style or efficient emulator architecture, the source code should be relatively understandable even to those without much Swift experience. Furthermore, Playgrounds allows users to poke at CPU internals like register state, memory state, and current opcode in real time, which may be helpful.
+
+## Screenshot
+![Connect4 Screenshot](screenshot.png)
+*Chip8-emu running a Connect4 ROM*
