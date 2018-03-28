@@ -3,7 +3,7 @@ import PlaygroundSupport
 /*:
 ## CHIP8 Emulator
 *This project is based on the article by [multigesture](http://www.multigesture.net/articles/how-to-write-an-emulator-chip-8-interpreter/)
-and the extensive documentation from [cowgod](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM).*
+and the extensive documentation from [cowgod](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM) and [mattmik](http://mattmik.com/files/chip8/mastering/chip8.html).*
 
 An emulator simulates the way a piece of computer hardware operates by mimicking its operation in software. This emulator is an interpreter, meaning the program reads byte-level instructions (1's and 0's) intended for a specific peice of hardware and replicates their effects in code.
 The hardware we will emulate is the Chip8, a virtual CPU designed to operate like a real physical CPU. It functions in roughly the same way as the CPU in your computer, but much slower and with numerous simplifications.
@@ -12,7 +12,7 @@ These instructions are simple tasks like moving a number from memory (RAM) to a 
 or adding a number to the value of a register, or skipping the next instruction if two registers are equal, etc.
 In addition, there are instructions for interacting with timers, an input keypad, and a black and white display.
 
-Try playing a game of breakout on the Chip8 by running this Playground. The controls are `4` and `6` for left and right, respectively.
+Try playing a game of breakout on the Chip8 by running this Playground. The controls are 4 and 6 for left and right, respectively.
 */
 final class Chip8 {
 /*:
@@ -50,8 +50,8 @@ stored in memory and shows the appropriate image to the screen.
     
 /*:
 ### Memory
-The first 80 bytes in memory are used for a bitmap font set.
-Each bit is a pixel, and each character is 8x5 pixels, so every byte is a row and every 5 bytes is a new character.
+The first 80 bytes in memory are used for a bitmap font set. Each bit is a pixel, and each character is 8x5 pixels, so every byte is a row and every 5 bytes is a new character.
+
 You can see how the bytes map into characters below:
 
 ```
@@ -64,16 +64,21 @@ You can see how the bytes map into characters below:
 0xF0   11110000   ****
 ```
 
-The rest of the memory is used to store whatever program we want to run - we'll use breakout for now, though you can change `forResource` in `romUrl` to load other roms from the `Resources` folder. The included roms were downloaded from zophar.net and are all public domain.
-    - `4` & `6` are left and right in breakout
-    - `1` & `2` control the left paddle while `C` and `D` control the right in pong
-    - `4` and `6` are left and right in connect4, while `5` drops a token
+The rest of the memory is used to store whatever program we want to run - we'll use breakout for now, though you can change `forResource` in `romUrl` to load other roms from the `Resources` folder. The included roms were downloaded from [zophar.net](https://www.zophar.net/pdroms/chip8/chip-8-games-pack.html) and are all public domain.
+
+- 4 & 6 are left & right in `breakout`
+- 4 & 6 are left & right in `connect4`, while 5 drops a token
+- 4 & 6 are left & right in `invaders`, while 5 shoots
+- 1 & 2 control the left paddle while C & D control the right in `pong`
+- 5 & 6 are left & right in `tetris`, while 4 rotates
+
 Generally, this is used to store the instructions that the CPU uses to run the program,
 though programs can also store custom bitmap graphics and other data here, then reference them in their instructions.
 */
     // load application rom and fontset into memory
     init() {
         // load fontset into memory
+        // parenthesis reduce logging - see https://stackoverflow.com/a/47542545
         (self.memory[..<80] = [
             0xF0, 0x90, 0x90, 0x90, 0xF0,  // 0
             0x20, 0x60, 0x20, 0x20, 0x70,  // 1
@@ -94,17 +99,16 @@ though programs can also store custom bitmap graphics and other data here, then 
         ])
 
         // load application ROM into memory
-        // Parenthesis around void expressions to reduce logging by Playgrounds and increase performance
         let romUrl: URL?, rom: [UInt8]
-        (romUrl = Bundle.main.url(forResource: "connect4", withExtension: "rom"))
+        (romUrl = Bundle.main.url(forResource: "breakout", withExtension: "rom"))
         (rom = [UInt8] (try! Data(contentsOf: romUrl!)))
         (self.memory[Int(self.pc)...] = rom[...])
     }
     
 /*:
 ### CPU
-Every second, a CPU fetches from memory, decodes, and follows many instructions.
-Each time a single instruction is processed is a cycle. The Chip8 has a cycle speed of 60 Hz, meaning 60 instructions are processed a second.
+Every second, a CPU fetches from memory, decodes, and follows many instructions. Each time a single instruction is processed is a cycle. The Chip8 has a cycle speed of 60 Hz, meaning 60 instructions are processed a second.
+
 The Chip8 CPU takes instructions in the form of 16-bit opcodes, which can be fetched from memory by concatenating two consecutive bytes. You can inspect the state of the CPU registers as well as the currently executing opcode in real time using the variables below. In fact, all of the components we covered previously can be inspected here by adding a line of code for the corresponding variable - just be mindful that inspecting more variables will make the emulator slower.
 */
     // emulate one CPU cycle
@@ -306,12 +310,12 @@ final class DisplayView:UIView {
     let colorSpace = CGColorSpaceCreateDeviceGray()
     
     init(frame: CGRect, chip: Chip8, width:Int, height:Int) {
-        self.chip8 = chip
-        self.width = width
-        self.height = height
-        super.init(frame:frame)
-        self.layer.magnificationFilter = kCAFilterNearest
-        self.refresh()
+        (self.chip8 = chip)
+        (self.width = width)
+        (self.height = height)
+        (super.init(frame:frame))
+        (self.layer.magnificationFilter = kCAFilterNearest)
+        (self.refresh())
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -354,9 +358,9 @@ public final class ViewController: UIViewController {
         
         // UI and Layout
         let view: UIView, keyboardView: UIView
-        (view = UIView(frame:CGRect(x:0, y:0, width:64*8, height:96*8)))
-        (self.displayView = DisplayView(frame:CGRect(x:0, y:0, width:64*8, height:32*8), chip:chip8, width:64, height:32))
-        (keyboardView = UIView(frame:CGRect(x:0, y:32*8, width:64*8, height:64*8)))
+        (view = UIView(frame:CGRect(x:0, y:0, width:68 * 8, height:102 * 8)))
+        (self.displayView = DisplayView(frame:CGRect(x:16, y:16, width:64 * 8, height:32 * 8), chip:chip8, width:64, height:32))
+        (keyboardView = UIView(frame:CGRect(x:16, y:36 * 8, width:68 * 8, height:64 * 8)))
         (view.addSubview(displayView))
         (view.addSubview(keyboardView))
         
@@ -369,18 +373,20 @@ public final class ViewController: UIViewController {
                 width:128,
                 height:128
             )))
+            
             (button.setTitle(String(format:"%X", i), for:.normal))
+            (button.setTitleColor(.white, for:.normal))
+            (button.titleLabel?.font = UIFont.systemFont(ofSize: 32))
+
+            (button.backgroundColor = .orange)
+            (button.layer.borderWidth = 0.5)
+            
             (button.addTarget(self, action:#selector(pressButton), for:.touchDown))
             (button.addTarget(self, action:#selector(releaseButton), for:.touchUpInside))
             (button.addTarget(self, action:#selector(releaseButton), for:.touchUpOutside))
-            (button.setTitleColor(.white, for:.normal))
-            (button.showsTouchWhenHighlighted = true)
-            (button.backgroundColor = .orange)
             (keyboardView.addSubview(button))
         }
-        
         (self.view = view)
-
     }
     
     override public func viewWillDisappear(_ animated:Bool) {
@@ -389,10 +395,14 @@ public final class ViewController: UIViewController {
     
     @objc func pressButton(sender:UIButton) {
         (self.chip8.keyboard[Int(sender.title(for:.normal)!, radix:16)!] = true)
+        (sender.backgroundColor = UIColor(red: 0.8, green: 0.4, blue: 0.0, alpha: 1.0))
+        (sender.layer.borderWidth = 4)
     }
     
     @objc func releaseButton(sender:UIButton) {
         (self.chip8.keyboard[Int(sender.title(for:.normal)!, radix:16)!] = false)
+        (sender.backgroundColor = .orange)
+        (sender.layer.borderWidth = 0.5)
     }
 
     @objc func runCycle() {
