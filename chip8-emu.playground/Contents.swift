@@ -5,7 +5,7 @@ import PlaygroundSupport
 *This project is based on the article by [multigesture](http://www.multigesture.net/articles/how-to-write-an-emulator-chip-8-interpreter/)
 and the extensive documentation from [cowgod](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM) and [mattmik](http://mattmik.com/files/chip8/mastering/chip8.html).*
 
-An emulator simulates the way a piece of computer hardware operates by mimicking its operation in software. This emulator is an interpreter, meaning the program reads byte-level instructions (1's and 0's) intended for a specific peice of hardware and replicates their effects in code.
+An emulator simulates the way a piece of computer hardware operates by mimicking its operation in software. This emulator is an interpreter, meaning the program reads byte-level instructions (1's and 0's) intended for a specific piece of hardware and replicates their effects in code.
 The hardware we will emulate is the Chip8, a virtual CPU designed to operate like a real physical CPU. It functions in roughly the same way as the CPU in your computer, but much slower and with numerous simplifications.
 Like a CPU, it reads in a list of simple instructions (opcodes) stored in memory, and executes them very quickly - hundreds or thousands of them every second.
 These instructions are simple tasks like moving a number from memory (RAM) to a register in the CPU,
@@ -17,8 +17,8 @@ Try playing a game of breakout on the Chip8 by running this Playground. The cont
 final class Chip8 {
 /*:
 ### Components
-The Chip8 has 4KB (4096 bytes) of memory, 15 8-bit general purpose registers (`V0` to `VE`) plus a carry register (`VF`),
-a 16 bit index register (`I`), and two 8-bit timers, for delay (`DT`) and sound (`ST`). Here, a byte is represented as an 8-bit unsigned integer type.
+The Chip8 has 4KB (4096 bytes) of memory, 15 8-bit general purpose registers (`V0` to `VE`), a carry register (`VF`),
+a 16-bit index register (`I`), and two 8-bit timers, for delay (`DT`) and sound (`ST`). Here, a byte is represented as an 8-bit unsigned integer type.
 16 bits are used for storing memory addresses, so the index register, stack, and program counter, which store addresses, are 16-bit.
 */
     var memory = [UInt8](repeating: 0, count: 4096)  // memory
@@ -37,12 +37,12 @@ so that they can be returned to after the subroutine finishes.
     var stack = [UInt16](repeating: 0, count: 16)  // stack
     
 /*:
-The display is 64 x 32 pixels, and each pixel can either be black or white.
+The display is 64 x 32 pixels, and is 1-bit: each pixel can either be black or white.
 In the original Chip8 each pixel would have been a bit in memory, but here each is a byte.
 The keyboard has 16 keys, each with a different hexadecimal digit, that can either be pressed or not pressed.
 The draw flag is used to keep track of whether the display has been updated.
-When the draw flag is true, another program (the ViewController) takes the display bytes
-stored in memory and shows the appropriate image to the screen.
+When the draw flag is true, another program (the `ViewController`) takes the display bytes
+stored in memory and transfers the appropriate image to the screen.
 */
     var display = [UInt8](repeating: 0, count: 64 * 32)  // display
     var keyboard = [Bool](repeating: false, count: 16)  // keyboard
